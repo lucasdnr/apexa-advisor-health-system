@@ -31,6 +31,23 @@ public class Advisor
         
     }
 
+    public void SetName(string name)
+    {
+        Name = name;
+    }
+
+    public void SetAddress(string address)
+    {
+       Address = address;
+    }
+
+    public void SetPhone(int phone) { 
+        Phone = phone;
+    }
+    public void SetSinNumber(int sinNumber)
+    {
+        SinNumber = sinNumber;
+    }
     private string generateHelthStatus()
     {
         int randomNumber = random.Next(1, 101); // Generate a random number between 1 and 100
