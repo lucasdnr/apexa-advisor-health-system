@@ -1,12 +1,30 @@
 ﻿using AdvisorHealthAPI.Data;
 using AdvisorHealthAPI.Models;
 using AdvisorHealthAPI.Requests;
+using AdvisorHealthAPI.Response;
 using Microsoft.EntityFrameworkCore;
 
 namespace AdvisorHealthAPI.Routes;
 
 public static class AdvisorsRoutes
 {
+    private static ICollection<AdvisorResponse> EntityListToResponseList(IEnumerable<Advisor> advisorList)
+    {
+        return advisorList.Select(a => EntityToResponse(a)).ToList();
+    }
+
+    private static AdvisorResponse EntityToResponse(Advisor advisor)
+    {
+        return new AdvisorResponse(
+                        advisor.Id,
+                        advisor.Name,
+                        advisor.SinNumber,
+                        advisor.Address,
+                        advisor.Phone,
+                        advisor.HealthStatus
+                    );
+    }
+
     public static void AddRoutesAdvisors(this WebApplication app)
     {
         var advisorsRoutes = app.MapGroup("advisors");
@@ -14,9 +32,16 @@ public static class AdvisorsRoutes
         // get all advisors
         advisorsRoutes.MapGet("", async (AdvisorsDbContext context) =>
         {
-            var advisors = await context.Advisors.ToListAsync();
-            return Results.Ok(advisors);
+            var advisors = await context
+                .Advisors
+                .ToListAsync();
+
+            var advisorListResponse = EntityListToResponseList(advisors);
+            return Results.Ok(advisorListResponse);
         });
+
+        // get one advisor
+
 
         // create new advisor
         advisorsRoutes.MapPost("", async (AdvisorRequest request, AdvisorsDbContext context) =>
@@ -30,7 +55,8 @@ public static class AdvisorsRoutes
             var advisor = new Advisor(request.Name, request.SinNumber, request.Address, request.Phone);
             await context.Advisors.AddAsync(advisor);
             await context.SaveChangesAsync();
-            return Results.Ok(advisor);
+
+            return Results.Ok(EntityToResponse(advisor));
  
         });
 
@@ -39,7 +65,7 @@ public static class AdvisorsRoutes
         {
             // verify if advisor exists to update
             var advisor = await context.Advisors.SingleOrDefaultAsync(advisor => advisor.Id == id);
-            if(advisor == null)
+            if(advisor is null)
                 return Results.NotFound();
 
             // verify if SIN number exists
@@ -54,7 +80,8 @@ public static class AdvisorsRoutes
             advisor.SetPhone(request.Phone);
 
             await context.SaveChangesAsync();
-            return Results.Ok(advisor);
+
+            return Results.Ok(EntityToResponse(advisor));
 
         });
 

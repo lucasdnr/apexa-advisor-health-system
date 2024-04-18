@@ -5,8 +5,8 @@ public class Advisor
     public Guid Id {  get; init; }
     public string Name { get; private set; }
     public int SinNumber { get; private set; }
-    public string? Address { get; private set; }
-    public int? Phone { get; private set; }
+    public string Address { get; private set; }
+    public int Phone { get; private set; }
     public string HealthStatus { get; }
 
     private static Random random = new Random();
@@ -18,7 +18,7 @@ public class Advisor
         RED
     }
 
-    public Advisor(string name, int sinNumber, string? address, int? phone) {
+    public Advisor(string name, int sinNumber, string address, int phone) {
         Id = Guid.NewGuid();
         Name = name;
         SinNumber = sinNumber;
@@ -27,7 +27,7 @@ public class Advisor
 
         // Randomly generated in the backend with the following probabilities:
         // Green=60% Yellow = 20% Red =20%)
-        HealthStatus = this.generateHelthStatus();
+        HealthStatus = generateHelthStatus();
         
     }
 
@@ -48,7 +48,7 @@ public class Advisor
     {
         SinNumber = sinNumber;
     }
-    private string generateHelthStatus()
+    private static string generateHelthStatus()
     {
         int randomNumber = random.Next(1, 101); // Generate a random number between 1 and 100
 
