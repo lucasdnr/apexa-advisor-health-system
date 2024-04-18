@@ -25,6 +25,9 @@ if(app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// configures application to serve the index.html file from /wwwroot
+app.UseDefaultFiles();
+
 // static files
 app.UseStaticFiles();
 
