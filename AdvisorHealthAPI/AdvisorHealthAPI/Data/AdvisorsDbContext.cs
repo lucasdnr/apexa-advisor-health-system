@@ -10,6 +10,8 @@ public class AdvisorsDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         optionsBuilder.UseInMemoryDatabase("AdvisorsDb");
+        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information);
+
         base.OnConfiguring(optionsBuilder);
     }
 }
