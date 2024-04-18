@@ -11,7 +11,11 @@ public static class AdvisorsRoutes
     {
         var advisorsRoutes = app.MapGroup("advisors");
 
-        //advisorsRoutes.MapGet("advisors", () => new Advisor("lucas", "address", 456));
+        advisorsRoutes.MapGet("", async (AdvisorsDbContext context) =>
+        {
+            var advisors = await context.Advisors.ToListAsync();
+            return Results.Ok(advisors);
+        });
 
         advisorsRoutes.MapPost("", async (AdvisorRequest request, AdvisorsDbContext context) =>
         {
