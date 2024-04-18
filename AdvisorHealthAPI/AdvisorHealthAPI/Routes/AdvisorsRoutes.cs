@@ -29,7 +29,7 @@ public static class AdvisorsRoutes
 
     public static void AddRoutesAdvisors(this WebApplication app)
     {
-        var advisorsRoutes = app.MapGroup("v1/advisors");
+        var advisorsRoutes = app.MapGroup("api/v1/advisors");
 
         // testing
         advisorsRoutes.MapGet("/testing", () => "Hello World!");

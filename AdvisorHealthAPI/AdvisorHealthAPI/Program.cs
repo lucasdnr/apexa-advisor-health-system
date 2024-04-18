@@ -25,6 +25,9 @@ if(app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+// static files
+app.UseStaticFiles();
+
 // Routes
 app.AddRoutesAdvisors();
 
