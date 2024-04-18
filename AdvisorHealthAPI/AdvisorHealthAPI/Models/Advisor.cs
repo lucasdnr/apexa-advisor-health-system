@@ -9,7 +9,7 @@ public class Advisor
     public string Name { get; private set; }
     public int SinNumber { get; private set; }
     public string Address { get; private set; }
-    public int Phone { get; private set; }
+    public int? Phone { get; private set; }
     public string HealthStatus { get; private set; }
 
     private static Random random = new Random();
@@ -21,7 +21,7 @@ public class Advisor
         RED
     }
 
-    public Advisor(string name, int sinNumber, string address, int phone) {
+    public Advisor(string name, int sinNumber, string address, int? phone) {
         Id = Guid.NewGuid();
         Name = name;
         SinNumber = sinNumber;
@@ -44,7 +44,7 @@ public class Advisor
        Address = address;
     }
 
-    public void SetPhone(int phone) { 
+    public void SetPhone(int? phone) { 
         Phone = phone;
     }
     public void SetSinNumber(int sinNumber)
