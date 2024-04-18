@@ -7,7 +7,7 @@ public class Advisor
     public int SinNumber { get; private set; }
     public string Address { get; private set; }
     public int Phone { get; private set; }
-    public string HealthStatus { get; }
+    public string HealthStatus { get; private set; }
 
     private static Random random = new Random();
 
