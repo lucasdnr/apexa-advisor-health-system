@@ -28,7 +28,7 @@ public static class AdvisorsRoutes
 
     public static void AddRoutesAdvisors(this WebApplication app)
     {
-        var advisorsRoutes = app.MapGroup("advisors");
+        var advisorsRoutes = app.MapGroup("v1/advisors");
 
         // get all advisors
         advisorsRoutes.MapGet("", async (AdvisorsDbContext context, CancellationToken ct) =>
