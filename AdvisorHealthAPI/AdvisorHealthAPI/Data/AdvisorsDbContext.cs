@@ -5,7 +5,7 @@ namespace AdvisorHealthAPI.Data;
 
 public class AdvisorsDbContext : DbContext
 {
-    private DbSet<Advisor> Advisors {  get; set; }
+    public DbSet<Advisor> Advisors {  get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

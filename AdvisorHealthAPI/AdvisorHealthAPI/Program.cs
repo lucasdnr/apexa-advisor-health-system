@@ -1,3 +1,4 @@
+using AdvisorHealthAPI.Data;
 using AdvisorHealthAPI.Routes;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 //Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<AdvisorsDbContext>();
 
 var app = builder.Build();
 
