@@ -3,7 +3,7 @@ using AdvisorHealthAPI.Models;
 using AdvisorHealthAPI.Requests;
 using AdvisorHealthAPI.Response;
 using Microsoft.EntityFrameworkCore;
-using System;
+using FluentValidation;
 
 namespace AdvisorHealthAPI.Routes;
 
@@ -57,20 +57,26 @@ public static class AdvisorsRoutes
         });
 
         // create new advisor
-        advisorsRoutes.MapPost("", async (AdvisorRequest request, AdvisorsDbContext context, CancellationToken ct) =>
+        advisorsRoutes.MapPost("", async (IValidator<AdvisorRequest> validator ,AdvisorRequest request, AdvisorsDbContext context, CancellationToken ct) =>
         {
-            // verify if SIN number exists
-            var hasAdvisor = await context.Advisors.AnyAsync(advisor => advisor.SinNumber == request.SinNumber, ct);
-            if (hasAdvisor)
-                return Results.Conflict("SIN number already exists!");
-            
-            // Save new record
-            var advisor = new Advisor(request.Name, request.SinNumber, request.Address, request.Phone);
-            await context.Advisors.AddAsync(advisor, ct);
-            await context.SaveChangesAsync(ct);
 
-            return Results.Ok(EntityToResponse(advisor));
- 
+            var validation = await validator.ValidateAsync(request);
+            if(validation.IsValid)
+            {
+                // verify if SIN number exists
+                var hasAdvisor = await context.Advisors.AnyAsync(advisor => advisor.SinNumber == request.SinNumber, ct);
+                if (hasAdvisor)
+                    return Results.Conflict("SIN number already exists!");
+
+                // Save new record
+                var advisor = new Advisor(request.Name, request.SinNumber, request.Address, request.Phone);
+                await context.Advisors.AddAsync(advisor, ct);
+                await context.SaveChangesAsync(ct);
+
+                return Results.Ok(EntityToResponse(advisor));
+            }
+            return Results.ValidationProblem(validation.ToDictionary());
+    
         });
 
         // update advisor

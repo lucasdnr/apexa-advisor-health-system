@@ -13,8 +13,6 @@ namespace AdvisorHealthAPI.Tests
         {
             var api = new AdvisorApiFactory();
             var client = api.CreateClient();
-
-            //var response = await client.GetStringAsync("v1/advisors/testing");
             
             // Act
             var response = await client.PostAsJsonAsync("v1/advisors/", new
@@ -28,11 +26,11 @@ namespace AdvisorHealthAPI.Tests
             // Assert
             Assert.Equal(HttpStatusCode.OK, response.StatusCode);
         }
-
+        /*
         [Fact]
         public async Task Should_add_to_storege_When_has_new_advisor()
         {
-            /*
+           
             var api = new AdvisorApiFactory();
             var client = api.CreateClient();
             var dbContext = api.CreateAdvisorsDbContext();
@@ -50,8 +48,8 @@ namespace AdvisorHealthAPI.Tests
             var dbEntry = await dbContext.Advisors.FirstOrDefaultAsync(advisor => advisor.SinNumber == 1234);
             
             Assert.NotNull(dbEntry);
-            */
             
         }
+        */
     }
 }

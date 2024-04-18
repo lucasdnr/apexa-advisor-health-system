@@ -1,5 +1,5 @@
 ﻿namespace AdvisorHealthAPI.Interfaces;
 
-public interface IAdvisorApi
+public interface IAdvisorDbEntity
 {
 }

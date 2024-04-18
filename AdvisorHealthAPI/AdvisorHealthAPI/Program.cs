@@ -1,5 +1,7 @@
 using AdvisorHealthAPI.Data;
 using AdvisorHealthAPI.Routes;
+using AdvisorHealthAPI.Validators;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +9,12 @@ var builder = WebApplication.CreateBuilder(args);
 //Swagger
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+//Db Context
 builder.Services.AddScoped<AdvisorsDbContext>();
+
+//Validators
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(AdvisorValidator));
 
 var app = builder.Build();
 
