@@ -1,7 +1,10 @@
-﻿namespace AdvisorHealthAPI.Models;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AdvisorHealthAPI.Models;
 
 public class Advisor
-{ 
+{
+    [Key]
     public Guid Id {  get; init; }
     public string Name { get; private set; }
     public int SinNumber { get; private set; }
