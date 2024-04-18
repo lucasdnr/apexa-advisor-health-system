@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvisorHealthAPI", "AdvisorHealthAPI\AdvisorHealthAPI.csproj", "{8021D4D2-EB02-48DD-A239-26C5E6890C66}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdvisorHealthAPI", "AdvisorHealthAPI\AdvisorHealthAPI.csproj", "{8021D4D2-EB02-48DD-A239-26C5E6890C66}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdvisorHealthAPI.Tests", "AdvisorHealthAPI.Tests\AdvisorHealthAPI.Tests.csproj", "{95B0FE6F-F001-4DD5-8A92-D9EAC6B40F8F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{8021D4D2-EB02-48DD-A239-26C5E6890C66}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8021D4D2-EB02-48DD-A239-26C5E6890C66}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8021D4D2-EB02-48DD-A239-26C5E6890C66}.Release|Any CPU.Build.0 = Release|Any CPU
+		{95B0FE6F-F001-4DD5-8A92-D9EAC6B40F8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95B0FE6F-F001-4DD5-8A92-D9EAC6B40F8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95B0FE6F-F001-4DD5-8A92-D9EAC6B40F8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95B0FE6F-F001-4DD5-8A92-D9EAC6B40F8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

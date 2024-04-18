@@ -24,7 +24,5 @@ app.AddRoutesAdvisors();
 
 app.Run();
 
-internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
+// Make the implicit Program class public so test projects can access it
+public partial class Program { }

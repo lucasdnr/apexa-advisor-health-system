@@ -30,6 +30,9 @@ public static class AdvisorsRoutes
     {
         var advisorsRoutes = app.MapGroup("v1/advisors");
 
+        // testing
+        advisorsRoutes.MapGet("/testing", () => "Hello World!");
+
         // get all advisors
         advisorsRoutes.MapGet("", async (AdvisorsDbContext context, CancellationToken ct) =>
         {
