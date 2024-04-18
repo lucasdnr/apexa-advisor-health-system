@@ -8,7 +8,7 @@ public class Advisor
     public Guid Id {  get; init; }
     public string Name { get; private set; }
     public int SinNumber { get; private set; }
-    public string Address { get; private set; }
+    public string? Address { get; private set; }
     public int? Phone { get; private set; }
     public string HealthStatus { get; private set; }
 
@@ -21,7 +21,7 @@ public class Advisor
         RED
     }
 
-    public Advisor(string name, int sinNumber, string address, int? phone) {
+    public Advisor(string name, int sinNumber, string? address, int? phone) {
         Id = Guid.NewGuid();
         Name = name;
         SinNumber = sinNumber;
@@ -39,7 +39,7 @@ public class Advisor
         Name = name;
     }
 
-    public void SetAddress(string address)
+    public void SetAddress(string? address)
     {
        Address = address;
     }
