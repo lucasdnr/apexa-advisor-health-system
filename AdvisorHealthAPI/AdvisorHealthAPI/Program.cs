@@ -17,7 +17,7 @@ if(app.Environment.IsDevelopment())
 }
 
 // Routes
-AdvisorsRoutes.AddRoutesAdvisors(app);
+app.AddRoutesAdvisors();
 
 
 app.Run();

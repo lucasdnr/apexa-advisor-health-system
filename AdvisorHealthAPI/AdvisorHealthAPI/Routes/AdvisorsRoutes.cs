@@ -2,7 +2,7 @@
 
 public static class AdvisorsRoutes
 {
-    public static void AddRoutesAdvisors(WebApplication app)
+    public static void AddRoutesAdvisors(this WebApplication app)
     {
         app.MapGet("advisors", () => "hello world");
     }
