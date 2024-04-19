@@ -19,7 +19,7 @@ export class NewAdvisorComponent {
 
   async createAdvisor(advisor: Advisor) {
     try {
-      await lastValueFrom(this.advisorService.createAdvisor(advisor));
+      await lastValueFrom(this.advisorService.create(advisor));
 
       this.router.navigate(['/']);
 

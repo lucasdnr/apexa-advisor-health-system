@@ -24,12 +24,17 @@ export class AdvisorService {
   }
 
   // create advisor
-  createAdvisor(advisor: Advisor): Observable<Advisor> {
+  create(advisor: Advisor): Observable<Advisor> {
     return this.http.post<Advisor>(this.apiURL, advisor);
   }
 
   // update advisor
-  updateAdvisor(id:string, advisor: Advisor): Observable<Advisor> {
+  update(id:string, advisor: Advisor): Observable<Advisor> {
     return this.http.put<Advisor>(`${this.apiURL}/${id}`, advisor);
   }
+
+  // delete advisor
+  // deleteAdvisor(id:string): {
+  //   return this.http.delete<Advisor>(`${this.apiURL}/${id}`);
+  // }
 }

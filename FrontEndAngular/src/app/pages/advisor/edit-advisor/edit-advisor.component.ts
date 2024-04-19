@@ -42,7 +42,7 @@ export class EditAdvisorComponent implements OnInit {
 
   async editAdvisor(advisor: Advisor) {
     try {
-      await lastValueFrom(this.advisorService.updateAdvisor(this.id, advisor));
+      await lastValueFrom(this.advisorService.update(this.id, advisor));
 
       this.router.navigate(['/']);
 
