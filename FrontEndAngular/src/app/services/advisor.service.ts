@@ -10,11 +10,16 @@ import { Advisor } from '../models/advisor.model';
 export class AdvisorService {
   private apiURL = environment.apiURL;
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient) {
   }
 
   // fetch all data
   getAll(): Observable<Advisor[]> {
     return this.http.get<Advisor[]>(`${this.apiURL}advisors`);
+  }
+
+  // create advisor
+  createAdvisor(advisor: Advisor): Observable<Advisor> {
+    return this.http.post<Advisor>(`${this.apiURL}advisors`, advisor);
   }
 }

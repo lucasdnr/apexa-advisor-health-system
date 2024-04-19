@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Advisor } from '../../models/advisor.model';
 
 @Component({
   selector: 'app-advisor-form',
@@ -9,13 +10,15 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
   styleUrl: './advisor-form.component.scss'
 })
 export class AdvisorFormComponent implements OnInit{
-  
+  @Output() onSubmit = new EventEmitter<Advisor>
+
   advisorForm!: FormGroup;
 
   constructor(){
   }
 
   ngOnInit(): void {
+    // init data form
     this.initForm();
   }
 
@@ -29,6 +32,6 @@ export class AdvisorFormComponent implements OnInit{
   }
 
   submit(){
-
+    this.onSubmit.emit(this.advisorForm.value);
   }
 }
