@@ -1,18 +1,18 @@
 import { Component } from '@angular/core';
-import { AdvisorFormComponent } from '../../components/advisor-form/advisor-form.component';
-import { Advisor } from '../../models/advisor.model';
-import { AdvisorService } from '../../services/advisor.service';
-import { lastValueFrom } from 'rxjs';
+import { AdvisorFormComponent } from '../../../components/advisor-form/advisor-form.component';
+import { AdvisorService } from '../../../services/advisor.service';
+import { Advisor } from '../../../models/advisor.model';
 import { Router } from '@angular/router';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-advisor',
+  selector: 'app-new-advisor',
   standalone: true,
   imports: [AdvisorFormComponent],
-  templateUrl: './advisor.component.html',
-  styleUrl: './advisor.component.scss'
+  templateUrl: './new-advisor.component.html',
+  styleUrl: './new-advisor.component.scss'
 })
-export class AdvisorComponent {
+export class NewAdvisorComponent {
   pageTitle = "New Advisor";
 
   constructor(private advisorService: AdvisorService, private router: Router) { }
