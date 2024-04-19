@@ -14,27 +14,39 @@ import { NgFor } from '@angular/common';
 export class HomeComponent implements OnInit {
 
   advisors: Advisor[] = [];
-  advisorList: Advisor[] = [];
+  advisorsList: Advisor[] = [];
 
   constructor(private advisorService: AdvisorService) { }
 
   async ngOnInit(): Promise<void> {
     // get all advisors from api
-    this.getData();
+    this.getAllData();
   }
 
-  async getData() {
+  // get All Data
+  async getAllData() {
 
     try {
       const data = await lastValueFrom(this.advisorService.getAll());
       if (data) {
         console.log("AQUI", data);
-        this.advisorList = data;
+        this.advisorsList = data;
         this.advisors = data;
       }
     } catch (e) {
       // console.log('Error to get Advisors');
     }
+  }
+
+  // search bar
+  search(event: Event) {
+    const target = event.target as HTMLInputElement;
+    const value = target.value.toLowerCase();
+    
+    // filter data from the orignal data fetch advisorsList
+    this.advisors = this.advisorsList.filter(advisor =>
+      advisor.name.toLowerCase().includes(value)
+    )
   }
 
   formartSIN(sinNumber: number): string {
