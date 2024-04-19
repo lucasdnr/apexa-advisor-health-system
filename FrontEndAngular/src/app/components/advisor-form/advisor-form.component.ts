@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, output } from '@angular/core';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Advisor } from '../../models/advisor.model';
 import { RouterLink } from '@angular/router';
@@ -12,7 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class AdvisorFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Advisor>
-
+  @Input() pageTitle!: string;
+  
   advisorForm!: FormGroup;
 
   constructor() {

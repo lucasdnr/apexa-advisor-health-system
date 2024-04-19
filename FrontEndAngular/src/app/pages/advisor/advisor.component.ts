@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
   styleUrl: './advisor.component.scss'
 })
 export class AdvisorComponent {
+  pageTitle = "New Advisor";
+
   constructor(private advisorService: AdvisorService, private router: Router) { }
 
   async createAdvisor(advisor: Advisor) {
