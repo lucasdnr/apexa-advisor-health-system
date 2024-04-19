@@ -29,11 +29,10 @@ export class HomeComponent implements OnInit {
 
     try {
       const data = await lastValueFrom(this.advisorService.getAll());
-      if (data) {
-        console.log("AQUI", data);
-        this.advisorsList = data;
-        this.advisors = data;
-      }
+
+      this.advisorsList = data;
+      this.advisors = data;
+
     } catch (e) {
       // console.error('Error to get Advisors');
     }
@@ -43,7 +42,7 @@ export class HomeComponent implements OnInit {
   search(event: Event) {
     const target = event.target as HTMLInputElement;
     const value = target.value.toLowerCase();
-    
+
     // filter data from the orignal data fetch advisorsList
     this.advisors = this.advisorsList.filter(advisor =>
       advisor.name.toLowerCase().includes(value)

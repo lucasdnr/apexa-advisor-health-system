@@ -1,20 +1,21 @@
 import { Component, EventEmitter, OnInit, Output, output } from '@angular/core';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Advisor } from '../../models/advisor.model';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-advisor-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink],
   templateUrl: './advisor-form.component.html',
   styleUrl: './advisor-form.component.scss'
 })
-export class AdvisorFormComponent implements OnInit{
+export class AdvisorFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Advisor>
 
   advisorForm!: FormGroup;
 
-  constructor(){
+  constructor() {
   }
 
   ngOnInit(): void {
@@ -22,16 +23,16 @@ export class AdvisorFormComponent implements OnInit{
     this.initForm();
   }
 
-  initForm(){
+  initForm() {
     this.advisorForm = new FormGroup({
-      name: new FormControl(''),
-      sinNumber: new FormControl(''),
+      name: new FormControl('', [Validators.required]),
+      sinNumber: new FormControl('', [Validators.required]),
       address: new FormControl(''),
       phone: new FormControl(''),
     });
   }
 
-  submit(){
+  submit() {
     this.onSubmit.emit(this.advisorForm.value);
   }
 }

@@ -3,6 +3,7 @@ import { AdvisorFormComponent } from '../../components/advisor-form/advisor-form
 import { Advisor } from '../../models/advisor.model';
 import { AdvisorService } from '../../services/advisor.service';
 import { lastValueFrom } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-advisor',
@@ -12,14 +13,14 @@ import { lastValueFrom } from 'rxjs';
   styleUrl: './advisor.component.scss'
 })
 export class AdvisorComponent {
-  constructor(private advisorService: AdvisorService) { }
+  constructor(private advisorService: AdvisorService, private router: Router) { }
 
   async createAdvisor(advisor: Advisor) {
     try {
       const response = await lastValueFrom(this.advisorService.createAdvisor(advisor));
-      if(response){
-        console.log("A", response);
-      }
+      
+      this.router.navigate(['/']);
+      
     } catch (e: any) {
       console.error("Error to create advisor", e.message);
     }

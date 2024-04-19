@@ -17,7 +17,7 @@
         <input type="text" formControlName="phone">
     </div>
     <div class="btn-box">
-        <button type="submit">Save</button>
-        <button>Cancel</button>
+        <button type="submit" [disabled]="!advisorForm.valid">Save</button>
+        <button routerLink="">Cancel</button>
     </div>
 </form>
