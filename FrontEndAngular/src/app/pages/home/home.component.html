@@ -16,32 +16,16 @@
             <th></th>
         </tr>
     </thead>
-    <tbody>
+    <tbody *ngFor="let advisor of advisors">
         <tr>
-            <td>Green</td>
-            <td>Lucas</td>
-            <td>123456</td>
-            <td>99999</td>
             <td>
-                <button>Edit</button>
-                <button>Delete</button>
+                <div class="health-status">
+                    <span [className]="advisor.healthStatus"></span>
+                </div>
             </td>
-        </tr>
-        <tr>
-            <td>Green</td>
-            <td>Lucas</td>
-            <td>123456</td>
-            <td>99999</td>
-            <td>
-                <button>Edit</button>
-                <button>Delete</button>
-            </td>
-        </tr>
-        <tr>
-            <td>Green</td>
-            <td>Lucas</td>
-            <td>123456</td>
-            <td>99999</td>
+            <td>{{ advisor.name }}</td>
+            <td>{{ advisor.sinNumber }}</td>
+            <td>{{ advisor.phone }}</td>
             <td>
                 <button>Edit</button>
                 <button>Delete</button>

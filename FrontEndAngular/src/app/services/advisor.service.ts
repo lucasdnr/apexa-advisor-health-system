@@ -8,13 +8,12 @@ import { Advisor } from '../models/advisor.model';
   providedIn: 'root'
 })
 export class AdvisorService {
-  headers: any = false;
-
   private apiURL = environment.apiURL;
 
   constructor(private http: HttpClient) { 
   }
 
+  // fetch all data
   getAll(): Observable<Advisor[]> {
     return this.http.get<Advisor[]>(`${this.apiURL}advisors`);
   }

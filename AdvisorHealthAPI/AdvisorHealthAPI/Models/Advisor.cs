@@ -16,9 +16,9 @@ public class Advisor
 
     public enum LightColor
     {
-        GREEN,
-        YELLOW,
-        RED
+        green,
+        yellow,
+        red
     }
 
     public Advisor(string name, int sinNumber, string? address, int? phone) {
@@ -57,15 +57,15 @@ public class Advisor
 
         if (randomNumber <= 60)
         {
-            return LightColor.GREEN.ToString(); // 60% chance for GREEN
+            return LightColor.green.ToString(); // 60% chance for GREEN
         }
         else if (randomNumber <= 80)
         {
-            return LightColor.YELLOW.ToString(); // 20% chance for YELLOW
+            return LightColor.yellow.ToString(); // 20% chance for YELLOW
         }
         else
         {
-            return LightColor.RED.ToString(); // 20% chance for RED
+            return LightColor.red.ToString(); // 20% chance for RED
         }
     }
 }
