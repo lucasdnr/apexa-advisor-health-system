@@ -4,17 +4,19 @@ import { Advisor } from '../../../models/advisor.model';
 import { AdvisorService } from '../../../services/advisor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-edit-advisor',
   standalone: true,
-  imports: [AdvisorFormComponent],
+  imports: [AdvisorFormComponent, NgIf],
   templateUrl: './edit-advisor.component.html',
   styleUrl: './edit-advisor.component.scss'
 })
 export class EditAdvisorComponent implements OnInit {
   pageTitle: string = "Edit Advisor";
   dataAdvisor!: Advisor;
+  id!: string;
 
   constructor(private advisorService: AdvisorService,
     private router: Router,
@@ -28,8 +30,8 @@ export class EditAdvisorComponent implements OnInit {
 
   async loadData() {
     try {
-      const id = String(this.route.snapshot.paramMap.get('id'));
-      const data = await lastValueFrom(this.advisorService.getOneById(id));
+      this.id = String(this.route.snapshot.paramMap.get('id'));
+      const data = await lastValueFrom(this.advisorService.getOneById(this.id));
 
       this.dataAdvisor = data;
 
@@ -39,5 +41,13 @@ export class EditAdvisorComponent implements OnInit {
   }
 
   async editAdvisor(advisor: Advisor) {
+    try {
+      await lastValueFrom(this.advisorService.updateAdvisor(this.id, advisor));
+
+      this.router.navigate(['/']);
+
+    } catch (e: any) {
+      console.error("Error to create advisor", e.message);
+    }
   }
 }

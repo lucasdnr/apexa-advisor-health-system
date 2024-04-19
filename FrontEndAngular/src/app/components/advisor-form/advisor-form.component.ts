@@ -27,10 +27,10 @@ export class AdvisorFormComponent implements OnInit {
 
   initForm() {
     this.advisorForm = new FormGroup({
-      name: new FormControl('', [Validators.required]),
-      sinNumber: new FormControl('', [Validators.required]),
-      address: new FormControl(''),
-      phone: new FormControl(''),
+      name: new FormControl(this.dataAdvisor ? this.dataAdvisor.name : '', [Validators.required, Validators.maxLength(255)]),
+      sinNumber: new FormControl(this.dataAdvisor ? this.dataAdvisor.sinNumber : '', [Validators.required]),
+      address: new FormControl(this.dataAdvisor ? this.dataAdvisor.address : '', Validators.maxLength(255)),
+      phone: new FormControl(this.dataAdvisor ? this.dataAdvisor.phone : ''),
     });
   }
 

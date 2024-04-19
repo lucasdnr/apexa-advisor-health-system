@@ -27,4 +27,9 @@ export class AdvisorService {
   createAdvisor(advisor: Advisor): Observable<Advisor> {
     return this.http.post<Advisor>(this.apiURL, advisor);
   }
+
+  // update advisor
+  updateAdvisor(id:string, advisor: Advisor): Observable<Advisor> {
+    return this.http.put<Advisor>(`${this.apiURL}/${id}`, advisor);
+  }
 }
