@@ -16,6 +16,18 @@ builder.Services.AddScoped<AdvisorsDbContext>();
 //Validators
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(AdvisorValidator));
 
+//CORS
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("MyAllowedOrigins",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                .AllowAnyHeader()
+                .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -34,6 +46,8 @@ app.UseStaticFiles();
 // Routes
 app.AddRoutesAdvisors();
 
+// CORS
+app.UseCors("MyAllowedOrigins");
 
 app.Run();
 
