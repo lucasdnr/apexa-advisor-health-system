@@ -33,8 +33,8 @@ export class HomeComponent implements OnInit {
       this.advisorsList = data;
       this.advisors = data;
 
-    } catch (e) {
-      // console.error('Error to get Advisors');
+    } catch (e: any) {
+      console.error('Error to get Advisors');
     }
   }
 

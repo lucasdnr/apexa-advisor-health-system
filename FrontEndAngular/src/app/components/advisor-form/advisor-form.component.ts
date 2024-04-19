@@ -13,7 +13,8 @@ import { RouterLink } from '@angular/router';
 export class AdvisorFormComponent implements OnInit {
   @Output() onSubmit = new EventEmitter<Advisor>
   @Input() pageTitle!: string;
-  
+  @Input() dataAdvisor: Advisor | null = null;
+
   advisorForm!: FormGroup;
 
   constructor() {

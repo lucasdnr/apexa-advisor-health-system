@@ -13,16 +13,16 @@ import { lastValueFrom } from 'rxjs';
   styleUrl: './new-advisor.component.scss'
 })
 export class NewAdvisorComponent {
-  pageTitle = "New Advisor";
+  pageTitle: string = "New Advisor";
 
   constructor(private advisorService: AdvisorService, private router: Router) { }
 
   async createAdvisor(advisor: Advisor) {
     try {
-      const response = await lastValueFrom(this.advisorService.createAdvisor(advisor));
-      
+      await lastValueFrom(this.advisorService.createAdvisor(advisor));
+
       this.router.navigate(['/']);
-      
+
     } catch (e: any) {
       console.error("Error to create advisor", e.message);
     }
