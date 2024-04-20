@@ -8,11 +8,16 @@ export class ToastService {
   constructor(private toastr: ToastrService) {}
 
   success(message?: string, title = 'Success'): void {
-      this.toastr.success(title, message);
+      this.toastr.success(message, title);
   }
 
   error(message?: string, title = 'Error', config: Partial<IndividualConfig> = {}): void {
-      this.toastr.error(title, message, config);
+      this.toastr.error(message, title, config);
+  }
+
+  errorGeneric(config: Partial<IndividualConfig> = {}): void {
+    const message = 'An error occurred. Please try again later';
+    this.toastr.error(message,  'Error', config);
   }
 
   info(message: string, title?: string, config: Partial<IndividualConfig> = {}): void {

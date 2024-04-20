@@ -5,6 +5,7 @@ import { AdvisorService } from '../../../services/advisor.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { NgIf } from '@angular/common';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-edit-advisor',
@@ -21,7 +22,8 @@ export class EditAdvisorComponent implements OnInit {
   constructor(
     private advisorService: AdvisorService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private toast: ToastService
   ) { }
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class EditAdvisorComponent implements OnInit {
       this.dataAdvisor = data;
 
     } catch (e: any) {
+      this.toast.errorGeneric();
       console.error("Error to get advisor data", e.message);
     }
   }
@@ -48,6 +51,11 @@ export class EditAdvisorComponent implements OnInit {
       this.router.navigate(['/']);
 
     } catch (e: any) {
+      if(e.status === 409){
+        this.toast.error(e.error, '');
+      }else{
+        this.toast.errorGeneric();
+      }
       console.error("Error to create advisor", e.message);
     }
   }

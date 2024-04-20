@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ToastService } from '../../services/toast.service';
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private advisorService: AdvisorService,
-    private dialog: DialogService
+    private dialog: DialogService,
+    private toast: ToastService
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -62,6 +64,7 @@ export class HomeComponent implements OnInit {
       this.advisors = data;
 
     } catch (e: any) {
+      this.toast.errorGeneric();
       console.error('Error to get Advisors');
     }
   }
@@ -95,6 +98,7 @@ export class HomeComponent implements OnInit {
           // load New Data
           this.getAllData();
         } catch (e: any) {
+          this.toast.errorGeneric();
           console.error('Error to delete Advisors');
         }
       }

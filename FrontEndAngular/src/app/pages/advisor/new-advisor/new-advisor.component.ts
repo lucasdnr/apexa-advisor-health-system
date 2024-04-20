@@ -31,6 +31,8 @@ export class NewAdvisorComponent {
     } catch (e: any) {
       if(e.status === 409){
         this.toast.error(e.error, '');
+      }else{
+        this.toast.errorGeneric();
       }
       console.error("Error to create advisor", e.message);
     }
