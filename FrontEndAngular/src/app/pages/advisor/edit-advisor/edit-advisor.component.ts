@@ -18,7 +18,8 @@ export class EditAdvisorComponent implements OnInit {
   dataAdvisor!: Advisor;
   id!: string;
 
-  constructor(private advisorService: AdvisorService,
+  constructor(
+    private advisorService: AdvisorService,
     private router: Router,
     private route: ActivatedRoute
   ) { }

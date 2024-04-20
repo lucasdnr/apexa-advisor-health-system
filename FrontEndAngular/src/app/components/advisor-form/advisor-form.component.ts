@@ -5,11 +5,23 @@ import { RouterLink } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
+import { NgIf } from '@angular/common';
+import { NgxMaskDirective , provideNgxMask} from 'ngx-mask';
 
 @Component({
   selector: 'app-advisor-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink, MatButtonModule, MatCardModule, MatInputModule],
+  imports: [
+    NgIf,
+    FormsModule, 
+    ReactiveFormsModule, 
+    RouterLink, 
+    MatButtonModule, 
+    MatCardModule, 
+    MatInputModule,
+    NgxMaskDirective
+  ],
+  providers: [provideNgxMask()],
   templateUrl: './advisor-form.component.html',
   styleUrl: './advisor-form.component.scss'
 })

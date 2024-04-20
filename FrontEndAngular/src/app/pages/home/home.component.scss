@@ -1,38 +1,57 @@
-h1{
+h1 {
     letter-spacing: 1px;
     text-align: center;
     text-transform: uppercase;
     margin-bottom: 2rem;
 }
+
 .health-status {
     text-align: center;
-    span{
+
+    span {
         display: inline-block;
         width: 20px;
         height: 20px;
         border-radius: 50%;
+
         &.green {
             background-color: green;
         }
+
         &.yellow {
             background-color: yellow;
         }
+
         &.red {
             background-color: red;
         }
     }
 }
-.btn-bar{
+
+.btn-bar {
     width: 100%;
     display: flex;
     justify-content: right;
     margin-bottom: 2rem;
 }
-.search{
+
+.search {
     width: 100%;
     display: flex;
     justify-content: left;
 }
-.input-box{
+
+.input-box {
     width: 300px;
+}
+
+.no-data {
+    width: 100%;
+    background-color: #3d3a3a;
+    padding: 2rem;
+    text-align: center;
+
+    p {
+        margin: 0;
+    }
 }

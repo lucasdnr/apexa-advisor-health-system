@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
@@ -10,7 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.scss'
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent{
   title: any = 'Notification!';
   message: any = '';
   yes: any = "Ok";
@@ -27,9 +27,6 @@ export class DialogComponent implements OnInit {
 
     if (this.data.no)
       this.no = this.data.no;
-  }
-
-  ngOnInit() {
   }
 
   close(response: boolean) {

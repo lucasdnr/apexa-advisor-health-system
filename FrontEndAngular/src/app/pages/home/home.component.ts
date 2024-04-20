@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AdvisorService } from '../../services/advisor.service';
 import { Advisor } from '../../models/advisor.model';
 import { lastValueFrom } from 'rxjs';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { DialogService } from '../../components/dialog/dialog.service';
 import { MatButtonModule } from '@angular/material/button';
@@ -16,6 +16,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-home',
   standalone: true,
   imports: [
+    NgIf,
     NgFor,
     RouterLink,
     MatTooltipModule,
@@ -35,7 +36,10 @@ export class HomeComponent implements OnInit {
 
   displayedColumns = ['Health', 'Name', 'SIN', 'Address', 'Phone', 'Actions']
 
-  constructor(private advisorService: AdvisorService, private dialog: DialogService) { }
+  constructor(
+    private advisorService: AdvisorService,
+    private dialog: DialogService
+  ) { }
 
   async ngOnInit(): Promise<void> {
     // get all advisors from api
@@ -78,20 +82,16 @@ export class HomeComponent implements OnInit {
           "OK",
           "Cancel"
         ));
-        if(confirmed){
-          console.log("AAA");
+      if (confirmed) {
+        try {
+          // delete item
+          const response = await lastValueFrom(this.advisorService.deleteAdvisor(id));
+          // load New Data
+          this.getAllData();
+        } catch (e: any) {
+          console.error('Error to delete Advisors');
         }
-      // const dialogRef = this.dialog
-      //   .showConfirmationdialog(
-      //     "Warning!",
-      //     `Are you sure you want to permanently delete ${itemData.name}?`,
-      //     "OK",
-      //     "Cancel"
-      //   )
-      //   .subscribe((confirmed: boolean) => {
-      //     if (confirmed) {
-      //     }
-      //   });
+      }
     }
   }
 

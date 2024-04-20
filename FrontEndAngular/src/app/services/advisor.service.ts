@@ -19,7 +19,7 @@ export class AdvisorService {
   }
 
   // get one by id
-  getOneById(id: string): Observable<Advisor>{
+  getOneById(id: string): Observable<Advisor> {
     return this.http.get<Advisor>(`${this.apiURL}/${id}`)
   }
 
@@ -29,12 +29,12 @@ export class AdvisorService {
   }
 
   // update advisor
-  update(id:string, advisor: Advisor): Observable<Advisor> {
+  update(id: string, advisor: Advisor): Observable<Advisor> {
     return this.http.put<Advisor>(`${this.apiURL}/${id}`, advisor);
   }
 
   // delete advisor
-  // deleteAdvisor(id:string): {
-  //   return this.http.delete<Advisor>(`${this.apiURL}/${id}`);
-  // }
+  deleteAdvisor(id: string): Observable<any> {
+    return this.http.delete<Advisor>(`${this.apiURL}/${id}`);
+  }
 }

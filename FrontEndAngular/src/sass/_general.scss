@@ -11,7 +11,7 @@ body {
     color: $primary-font-color;
 }
 
-mat-card{
+mat-card {
     width: 80%;
     max-width: 800px;
     height: 100%;
@@ -23,21 +23,36 @@ mat-card{
     margin-top: 5rem;
 }
 
-mat-form-field{
+mat-form-field {
     width: 100%;
 }
 
-.input-box{
+.input-box {
     width: 500px;
 }
 
-.btn-box{
+.btn-box {
     display: flex;
     justify-content: flex-end;
-    button{
-        &:first-child{
+
+    button {
+        &:first-child {
             margin-right: 15px;
         }
+
         width: 100%;
+    }
+}
+
+a.link {
+    color: $primary-font-color;
+
+    &:hover {
+        text-decoration: none;
+    }
+
+    &:link,
+    &:visited {
+        color: $primary-font-color;
     }
 }
