@@ -20,7 +20,7 @@ Once GIT and .NET are installed, it is necessary to clone the project using the 
 ```sh
 git clone https://github.com/lucasdnr/apexa-advisor-health-system.git
 ```
-- Access the folder \AdvisorHealthAPI and run the command:
+Access the folder \AdvisorHealthAPI and run the command:
 ```sh
 dotnet watch run --project AdvisorHealthAPI
 ```
@@ -29,7 +29,7 @@ This command will build the .Net solution. At the end of the process, it will op
 ## FOLDERS STRUCTURE
 This repository has 2 main folders, `AdvisorHealthAPI` and `FrontEndAngular`.
 
-- **FrontEndAngular**: This folder is where the Angular project is located. You can install the Angular project by running:
+**FrontEndAngular**: This folder is where the Angular project is located. You can install the Angular project by running:
 ```sh
 npm i
 ```
@@ -39,7 +39,7 @@ ng serve
 ```
 To start the Angular server.
 
-- **AdvisorHealthAPI**: This folder is where the .Net project is located. Inside this project, we have the folder `wwwroot` where the built static files from Angular are.
+**AdvisorHealthAPI**: This folder is where the .Net project is located. Inside this project, we have the folder `wwwroot` where the built static files from Angular are.
 
 When you are working on the Angular Project, you can build your project and send the files to `wwwroot` running the command:
 ```sh
