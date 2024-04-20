@@ -37,4 +37,34 @@ export class AdvisorService {
   deleteAdvisor(id: string): Observable<any> {
     return this.http.delete<Advisor>(`${this.apiURL}/${id}`);
   }
+
+  formartSIN(sinNumber: number): string {
+    // Convert the SIN to a string
+    let sinString = sinNumber.toString();
+
+    // Check if the SIN length is valid
+    if (sinString.length !== 9) {
+      return "";
+    }
+
+    // Format the SIN with hyphens
+    const formattedSIN = sinString.substring(0, 3) + '-' + sinString.substring(3, 6) + '-' + sinString.substring(6);
+
+    return formattedSIN;
+  }
+
+  formartPhone(sinNumber: number): string {
+    // Convert the SIN to a string
+    let sinString = sinNumber.toString();
+
+    // Check if the SIN length is valid
+    if (sinString.length !== 8) {
+      return "";
+    }
+
+    // Format the SIN with hyphens
+    const formattedSIN = sinString.substring(0, 4) + '-' + sinString.substring(4, 8);
+
+    return formattedSIN;
+  }
 }

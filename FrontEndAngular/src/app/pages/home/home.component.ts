@@ -51,7 +51,13 @@ export class HomeComponent implements OnInit {
 
     try {
       const data = await lastValueFrom(this.advisorService.getAll());
+      data.map(e=>{
+        // transformations
+        e.sinNumber = this.advisorService.formartSIN(Number(e.sinNumber));
+        e.phone = this.advisorService.formartPhone(Number(e.phone));
+      })
 
+      // move data
       this.advisorsList = data;
       this.advisors = data;
 
@@ -94,35 +100,4 @@ export class HomeComponent implements OnInit {
       }
     }
   }
-
-  formartSIN(sinNumber: number): string {
-    // Convert the SIN to a string
-    let sinString = sinNumber.toString();
-
-    // Check if the SIN length is valid
-    if (sinString.length !== 9) {
-      return "Invalid SIN length";
-    }
-
-    // Format the SIN with hyphens
-    const formattedSIN = sinString.substring(0, 3) + '-' + sinString.substring(3, 6) + '-' + sinString.substring(6);
-
-    return formattedSIN;
-  }
-
-  maskSIN(sinNumber: number): string {
-    // Convert the SIN to a string
-    let sinString = sinNumber.toString();
-
-    // Check if the SIN length is valid
-    if (sinString.length !== 9) {
-      return "Invalid SIN length";
-    }
-
-    // Mask all but the last 4 digits
-    let maskedSIN = '***-***-' + sinString.substring(sinString.length - 4);
-
-    return maskedSIN;
-  }
-
 }

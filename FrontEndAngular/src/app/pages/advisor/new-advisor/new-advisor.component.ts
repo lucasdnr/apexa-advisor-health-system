@@ -4,6 +4,7 @@ import { AdvisorService } from '../../../services/advisor.service';
 import { Advisor } from '../../../models/advisor.model';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
+import { ToastService } from '../../../services/toast.service';
 
 @Component({
   selector: 'app-new-advisor',
@@ -15,15 +16,22 @@ import { lastValueFrom } from 'rxjs';
 export class NewAdvisorComponent {
   pageTitle: string = "New Advisor";
 
-  constructor(private advisorService: AdvisorService, private router: Router) { }
+  constructor(
+    private advisorService: AdvisorService, 
+    private router: Router,
+    private toast: ToastService) { }
 
   async createAdvisor(advisor: Advisor) {
     try {
+      // create new advisor and redirect to home page
       await lastValueFrom(this.advisorService.create(advisor));
 
       this.router.navigate(['/']);
 
     } catch (e: any) {
+      if(e.status === 409){
+        this.toast.error(e.error, '');
+      }
       console.error("Error to create advisor", e.message);
     }
   }
