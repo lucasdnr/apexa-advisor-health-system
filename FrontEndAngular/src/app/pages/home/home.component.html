@@ -3,20 +3,18 @@
     <div class="btn-bar">
         <button mat-raised-button color="primary" routerLink="/advisor"><mat-icon aria-hidden="false" aria-label="Add icon" fontIcon="addd"></mat-icon>New Advisor</button>
     </div>
+    <div class="search">
+        <div class="input-box">
+            <mat-form-field>
+                <mat-label>Search</mat-label>
+                <input matInput type="text" placeholder="Type the name of Advisor" (input)="search($event)">
+            </mat-form-field>
+        </div>
+    </div>
     <div class="no-data" *ngIf="advisors.length == 0; else hasData">
-        <p>No Advisor found! <a class="link" routerLink="/advisor" title="New Advisor">Create the first one</a></p>
+        <p>No Advisor found! <a class="link" routerLink="/advisor" title="New Advisor">Do you want to create one?</a></p>
     </div>
     <ng-template #hasData>
-
-        <div class="search">
-            <div class="input-box">
-                <mat-form-field>
-                    <mat-label>Search</mat-label>
-                    <input matInput type="text" placeholder="Type the name of Advisor" (input)="search($event)">
-                </mat-form-field>
-            </div>
-        </div>
-        
         <table mat-table [dataSource]="advisors" class="mat-elevation-z8">
             <!-- Health Column -->
             <ng-container matColumnDef="Health">

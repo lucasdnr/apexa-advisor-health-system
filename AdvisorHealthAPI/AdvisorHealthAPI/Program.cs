@@ -5,7 +5,13 @@ using AdvisorHealthAPI.Routes;
 using AdvisorHealthAPI.Validators;
 using FluentValidation;
 
-var builder = WebApplication.CreateBuilder(args);
+//var builder = WebApplication.CreateBuilder(args);
+
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
+{
+    Args = args,
+    WebRootPath = "browser"
+});
 
 // Add services to the container.
 //Swagger

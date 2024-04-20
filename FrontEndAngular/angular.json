@@ -18,7 +18,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/front-end-angular",
+            "outputPath": "../AdvisorHealthAPI/AdvisorHealthAPI/wwwroot",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -42,7 +42,7 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
+                  "maximumWarning": "2mb",
                   "maximumError": "1mb"
                 },
                 {

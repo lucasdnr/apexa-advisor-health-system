@@ -48,7 +48,7 @@ export class AdvisorService {
     let dataTransf: Advisor = { ...advisor };
     if (dataTransf.hasOwnProperty('phone')) {
       if (dataTransf.phone == "") {
-        // dataTransf.phone = null;
+        dataTransf.phone = null;
       }
     }
     return dataTransf;
