@@ -25,7 +25,8 @@ public class AdvisorValidator :  AbstractValidator<AdvisorRequest>
         
         // Phone
         RuleFor(p => p.Phone)
-            .Must(w => w.ToString().Length == 8 || w.ToString().Length == 0 || w == 0)
-            .WithMessage("Must be a size 8");
+            .Must(w => w?.ToString().Length == 8)
+            .WithMessage("Must be a size 8")
+            .When(x => !string.IsNullOrEmpty(x.Phone.ToString()));
     }
 }

@@ -11,9 +11,9 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './dialog.component.scss'
 })
 export class DialogComponent{
-  title: any = 'Notification!';
-  message: any = '';
-  yes: any = "Ok";
+  title: string = 'Notification!';
+  message: string = '';
+  yes: string = "Ok";
   no: any = false;
 
   constructor(
