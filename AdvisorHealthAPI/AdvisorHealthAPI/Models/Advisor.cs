@@ -6,9 +6,13 @@ public class Advisor
 {
     [Key]
     public Guid Id {  get; init; }
+    [Required, MaxLength(255)]
     public string Name { get; private set; }
+    [Required, Length(9, 9)]
     public int SinNumber { get; private set; }
+    [MaxLength(255)]
     public string? Address { get; private set; }
+    [Length(8, 8)]
     public int? Phone { get; private set; }
     public string HealthStatus { get; private set; }
 
