@@ -11,7 +11,7 @@ namespace AdvisorHealthAPI.Tests;
 public class AdvisorApiFactory : WebApplicationFactory<Program>
 {
     /* I understand the idea that involves using dBContext in tests to be able to access 
-     * the same database as the main API application, you need to read the documentation 
+     * the same database as the main API application, I need to read the documentation 
      * more to understand why this method still doesn't work
      */
     public AdvisorsDbContext CreateAdvisorsDbContext()
