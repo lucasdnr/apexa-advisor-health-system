@@ -99,7 +99,7 @@ public static class AdvisorsRoutes
 
             return Results.Ok(EntityToResponse(advisor));
 
-        });
+        }).AddEndpointFilter<ValidationFilter<AdvisorRequest>>();
 
         // delete advisor
         advisorsRoutes.MapDelete("{id:guid}", async (Guid id, AdvisorsDbContext context, CancellationToken ct) =>

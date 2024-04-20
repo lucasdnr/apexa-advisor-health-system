@@ -1,35 +1,63 @@
-<div class="search">
-    <button routerLink="/advisor">New Advisor</button>
-    <div class="input-box">
-        <label>Search:</label>
-        <input type="text" placeholder="Type the name of Advisor" (input)="search($event)">
+<mat-card>
+    <h1>Advisors</h1>
+    <div class="btn-bar">
+        <button mat-raised-button color="primary" routerLink="/advisor"><mat-icon aria-hidden="false" aria-label="Add icon" fontIcon="addd"></mat-icon>New Advisor</button>
     </div>
-</div>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Health</th>
-            <th>Name</th>
-            <th>SIN</th>
-            <th>Phone</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody *ngFor="let advisor of advisors">
-        <tr>
-            <td>
+    <div class="search">
+        <div class="input-box">
+            <mat-form-field>
+                <mat-label>Search:</mat-label>
+                <input matInput type="text" placeholder="Type the name of Advisor" (input)="search($event)">
+            </mat-form-field>
+        </div>
+    </div>
+    
+    <table mat-table [dataSource]="advisors" class="mat-elevation-z8">
+        <!-- Health Column -->
+        <ng-container matColumnDef="Health">
+            <th mat-header-cell *matHeaderCellDef> Health </th>
+            <td mat-cell *matCellDef="let element">
                 <div class="health-status">
-                    <span [className]="advisor.healthStatus"></span>
+                    <span [className]="element.healthStatus"></span>
                 </div>
             </td>
-            <td>{{ advisor.name }}</td>
-            <td>{{ advisor.sinNumber }}</td>
-            <td>{{ advisor.phone }}</td>
-            <td>
-                <button routerLink="/advisor/{{advisor.id}}">Edit</button>
-                <button>Delete</button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+        </ng-container>
+      
+        <!-- Name Column -->
+        <ng-container matColumnDef="Name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+      
+        <!-- SIN Column -->
+        <ng-container matColumnDef="SIN">
+          <th mat-header-cell *matHeaderCellDef> SIN </th>
+          <td mat-cell *matCellDef="let element"> {{element.sinNumber}} </td>
+        </ng-container>
+      
+        <!-- Phone Column -->
+        <ng-container matColumnDef="Address">
+          <th mat-header-cell *matHeaderCellDef> Address </th>
+          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+        </ng-container>
+    
+        <!-- Phone Column -->
+        <ng-container matColumnDef="Phone">
+          <th mat-header-cell *matHeaderCellDef> Phone </th>
+          <td mat-cell *matCellDef="let element"> {{element.phone}} </td>
+        </ng-container>
+    
+        <!-- Actions Column -->
+        <ng-container matColumnDef="Actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button routerLink="/advisor/{{element.id}}"><mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon></button>
+            <button mat-icon-button color="warn"><mat-icon aria-hidden="false" aria-label="Delete icon" fontIcon="delete_forever"></mat-icon></button>
+          </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+</mat-card>
+  

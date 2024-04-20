@@ -34,7 +34,10 @@ mat-form-field{
 .btn-box{
     display: flex;
     justify-content: flex-end;
-    button:first-child{
-        margin-right: 5px;
+    button{
+        &:first-child{
+            margin-right: 15px;
+        }
+        width: 100%;
     }
 }

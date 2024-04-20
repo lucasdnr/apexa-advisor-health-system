@@ -4,11 +4,16 @@ import { Advisor } from '../../models/advisor.model';
 import { lastValueFrom } from 'rxjs';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTableModule } from '@angular/material/table';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, RouterLink],
+  imports: [NgFor, RouterLink, MatButtonModule, MatCardModule, MatInputModule, MatIconModule, MatTableModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -16,6 +21,8 @@ export class HomeComponent implements OnInit {
 
   advisors: Advisor[] = [];
   advisorsList: Advisor[] = [];
+
+  displayedColumns = ['Health', 'Name', 'SIN', 'Address', 'Phone', 'Actions']
 
   constructor(private advisorService: AdvisorService) { }
 
