@@ -34,7 +34,7 @@ namespace AdvisorHealthAPI.Tests
         }
 
         [Fact]
-        public async Task Should_return_400_bad_request_When_send_invalid_fields()
+        public async Task Should_return_400_bad_request_When_send_invalid_phone()
         {
             var api = new AdvisorApiFactory();
             var client = api.CreateClient();
@@ -53,6 +53,69 @@ namespace AdvisorHealthAPI.Tests
             // Assert
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
         }
+
+        [Fact]
+        public async Task Should_return_400_bad_request_When_send_invalid_sin_number()
+        {
+            var api = new AdvisorApiFactory();
+            var client = api.CreateClient();
+            // Arrange
+            var sinNumber = Generator.GenerateRandomNumber(5);
+
+            // Act
+            var response = await client.PostAsJsonAsync("api/v1/advisors/", new
+            {
+                Name = "Lucas",
+                SinNumber = sinNumber,
+                Address = "My Address",
+                Phone = 35595278
+            });
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_return_400_bad_request_When_send_invalid_name()
+        {
+            var api = new AdvisorApiFactory();
+            var client = api.CreateClient();
+            // Arrange
+            var sinNumber = Generator.GenerateRandomNumber(9);
+
+            // Act
+            var response = await client.PostAsJsonAsync("api/v1/advisors/", new
+            {
+                SinNumber = sinNumber,
+                Address = "My Address",
+                Phone = 35595278
+            });
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
+        [Fact]
+        public async Task Should_return_400_bad_request_When_send_invalid_address()
+        {
+            var api = new AdvisorApiFactory();
+            var client = api.CreateClient();
+            // Arrange
+            var sinNumber = Generator.GenerateRandomNumber(9);
+            var address = Generator.GenerateRandomString(300);
+
+            // Act
+            var response = await client.PostAsJsonAsync("api/v1/advisors/", new
+            {
+                SinNumber = sinNumber,
+                Address = address,
+                Phone = 35595278
+            });
+
+            // Assert
+            Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
+        }
+
         [Fact]
         public async Task Should_return_409_conflict_When_send_same_sin_number()
         {

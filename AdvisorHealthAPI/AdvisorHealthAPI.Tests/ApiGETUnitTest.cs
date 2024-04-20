@@ -36,7 +36,7 @@ public class ApiGETUnitTest
     }
 
     [Fact]
-    public async Task Should_return_404_error_When_use_wrong_id()
+    public async Task Should_return_404_not_found_When_send_invalid_id()
     {
         var api = new AdvisorApiFactory();
         var client = api.CreateClient();
