@@ -1,10 +1,10 @@
 ﻿namespace AdvisorHealthAPI.Caching;
 
 
-public class LRUCache<TKey, TValue>
+public class LRUCache<TKey, TValue> where TKey : IComparable<TKey>
 {
     private readonly int _capacity;
-    private readonly Dictionary<TKey, LinkedListNode<CacheItem>> _cacheMap;
+    private readonly Dictionary<TKey, LinkedListNode<CacheItem>> _cacheMap ;
     private readonly LinkedList<CacheItem> _cacheList;
 
     public LRUCache(int capacity = 1)
@@ -25,7 +25,8 @@ public class LRUCache<TKey, TValue>
         {
             var lastNode = _cacheList.Last;
             _cacheList.RemoveLast();
-            _cacheMap.Remove(lastNode.Value.Key);
+            if(lastNode is not null )
+                _cacheMap.Remove(lastNode.Value.Key);
         }
 
         node = new LinkedListNode<CacheItem>(new CacheItem(key, value));
@@ -33,7 +34,7 @@ public class LRUCache<TKey, TValue>
         _cacheMap.Add(key, node);
     }
 
-    public TValue Get(TKey key)
+    public TValue? Get(TKey key)
     {
         if (_cacheMap.TryGetValue(key, out var node))
         {
@@ -43,7 +44,7 @@ public class LRUCache<TKey, TValue>
         }
 
         // Key not found in cache
-        return default(TValue);
+        return default;
     }
 
     public void Remove(TKey key)
