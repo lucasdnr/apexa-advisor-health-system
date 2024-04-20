@@ -2,38 +2,8 @@
 // variables
 @import './sass/variables';
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: #191c1c;
-}
-
-.container {
-    color: #e0e3e2;
-}
-
-mat-card{
-    width: 80%;
-    max-width: 800px;
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 auto;
-    padding: 3rem;
-    margin-top: 5rem;
-}
-
-mat-form-field{
-    width: 100%;
-}
-
-.input-box{
-    width: 500px;
-}
+// general
+@import './sass/general';
 
 // queries
 @import './sass/queries';
