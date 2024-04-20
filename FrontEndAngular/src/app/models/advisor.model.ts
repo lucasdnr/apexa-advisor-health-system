@@ -3,6 +3,6 @@ export interface Advisor {
     name: string,
     sinNumber: number | string,
     address?: string,
-    phone?: number | string,
+    phone?: number | string | null,
     healthStatus?: string
 }

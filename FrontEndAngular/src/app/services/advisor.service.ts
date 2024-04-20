@@ -25,12 +25,14 @@ export class AdvisorService {
 
   // create advisor
   create(advisor: Advisor): Observable<Advisor> {
-    return this.http.post<Advisor>(this.apiURL, advisor);
+    const dataTransf: Advisor = this.dataTransformSend(advisor);
+    return this.http.post<Advisor>(this.apiURL, dataTransf);
   }
 
   // update advisor
   update(id: string, advisor: Advisor): Observable<Advisor> {
-    return this.http.put<Advisor>(`${this.apiURL}/${id}`, advisor);
+    const dataTransf: Advisor = this.dataTransformSend(advisor);
+    return this.http.put<Advisor>(`${this.apiURL}/${id}`, dataTransf);
   }
 
   // delete advisor
@@ -38,6 +40,22 @@ export class AdvisorService {
     return this.http.delete<Advisor>(`${this.apiURL}/${id}`);
   }
 
+  // data transformation
+  // this is a workaround to send Phone field as empty to endpoint.
+  // endpoint doesn't accept Phone = "" since this field is numeric.
+  // other fields can be treated in this method
+  dataTransformSend(advisor: Advisor): Advisor {
+    let dataTransf: Advisor = { ...advisor };
+    if (dataTransf.hasOwnProperty('phone')) {
+      if (dataTransf.phone == "") {
+        dataTransf.phone = null;
+      }
+    }
+    return dataTransf;
+  }
+
+
+  //
   formartSIN(sinNumber: number): string {
     // Convert the SIN to a string
     let sinString = sinNumber.toString();
