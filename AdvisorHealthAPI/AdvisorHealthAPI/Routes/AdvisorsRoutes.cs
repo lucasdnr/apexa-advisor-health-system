@@ -35,7 +35,7 @@ public static class AdvisorsRoutes
         var advisorsRoutes = app.MapGroup("api/v1/advisors");
 
         // testing
-        advisorsRoutes.MapGet("/testing", () => "Hello World!");
+        //advisorsRoutes.MapGet("/testing", () => "Hello World!");
 
         // get all advisors
         advisorsRoutes.MapGet("", async (AdvisorsDbContext context, CancellationToken ct) =>
@@ -53,7 +53,7 @@ public static class AdvisorsRoutes
         {
             var valueCache = cache.Get(id.ToString());
             if(valueCache is not null)
-                return Results.Ok(valueCache);
+                return Results.Ok(EntityToResponse(valueCache));
 
             var advisor = await context
                 .Advisors
@@ -64,7 +64,7 @@ public static class AdvisorsRoutes
             // add to cache
             cache.Set(id.ToString(), advisor);
 
-            return Results.Ok(advisor);
+            return Results.Ok(EntityToResponse(advisor));
         });
 
         // create new advisor
@@ -80,6 +80,9 @@ public static class AdvisorsRoutes
             var advisor = new Advisor(request.Name, request.SinNumber, request.Address, request.Phone);
             await context.Advisors.AddAsync(advisor, ct);
             await context.SaveChangesAsync(ct);
+
+            // save to cache
+            cache.Set(advisor.Id.ToString(), advisor);
 
             return Results.Ok(EntityToResponse(advisor));
        
@@ -106,6 +109,11 @@ public static class AdvisorsRoutes
             advisor.SetPhone(request.Phone);
 
             await context.SaveChangesAsync(ct);
+
+            // update cache
+            var valueCache = cache.Get(id.ToString());
+            if (valueCache is not null)
+                cache.Set(id.ToString(), advisor);
 
             return Results.Ok(EntityToResponse(advisor));
 

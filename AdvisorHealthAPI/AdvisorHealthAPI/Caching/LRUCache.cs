@@ -16,26 +16,21 @@ public class LRUCache<TKey, TValue>
 
     public void Set(TKey key, TValue value)
     {
-        // update item if this already exists
-        if (_cacheMap.TryGetValue(key, out var node))
-        {
-            _cacheList.Remove(node);
-            _cacheList.AddFirst(node);
-        }
-        else
-        {
-            // if items doesn't exist we verify the capacity and include the new item
-            if (_cacheMap.Count >= _capacity)
-            {
-                var lastNode = _cacheList.Last;
-                _cacheList.RemoveLast();
-                _cacheMap.Remove(lastNode.Value.Key);
-            }
 
-            node = new LinkedListNode<CacheItem>(new CacheItem(key, value));
-            _cacheList.AddFirst(node);
-            _cacheMap.Add(key, node);
+        if (_cacheMap.TryGetValue(key, out var node))
+            Remove(key);
+
+        // if items doesn't exist we verify the capacity and include the new item
+        if (_cacheMap.Count >= _capacity)
+        {
+            var lastNode = _cacheList.Last;
+            _cacheList.RemoveLast();
+            _cacheMap.Remove(lastNode.Value.Key);
         }
+
+        node = new LinkedListNode<CacheItem>(new CacheItem(key, value));
+        _cacheList.AddFirst(node);
+        _cacheMap.Add(key, node);
     }
 
     public TValue Get(TKey key)
