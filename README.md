@@ -12,19 +12,20 @@ I did not adopt any database since the solution was developed using the inMemory
 
 ## PRE REQUISITE
 To install this app, the following prerequisites need to be installed:
-- [GIT](https://git-scm.com/downloads)
-- [.NET SDK](https://dotnet.microsoft.com/en-us/download)
+- [Git](https://git-scm.com/downloads)
+- [.Net SDK](https://dotnet.microsoft.com/en-us/download)
 
 ## INSTALL
-Once GIT and .NET are installed, it is necessary to clone the project using the command:
+Once Git and .Net are installed, it is necessary to clone the project using the command:
 ```sh
 git clone https://github.com/lucasdnr/apexa-advisor-health-system.git
 ```
-Access the folder \AdvisorHealthAPI and run the command:
+Access the folder `\AdvisorHealthAPI` and run the command:
 ```sh
 dotnet watch run --project AdvisorHealthAPI
 ```
-This command will build the .Net solution. At the end of the process, it will open a browser. If this does not happen, open your browser and access the address [http://localhost:5000/browser/](http://localhost:5000/browser/) to access the application. Enjoy :)
+This command will build the .Net solution. At the end of the process, it will open your browser. <br>
+If this does not happen, open your browser and access the address [http://localhost:5000/browser/](http://localhost:5000/browser/) to access the application. Enjoy :)
 
 ## FOLDERS STRUCTURE
 This repository has 2 main folders, `AdvisorHealthAPI` and `FrontEndAngular`.
