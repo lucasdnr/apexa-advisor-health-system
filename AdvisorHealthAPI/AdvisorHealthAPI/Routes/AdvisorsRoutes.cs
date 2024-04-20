@@ -5,6 +5,8 @@ using AdvisorHealthAPI.Response;
 using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using AdvisorHealthAPI.Validators;
+using AdvisorHealthAPI.Caching;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace AdvisorHealthAPI.Routes;
 
@@ -27,7 +29,8 @@ public static class AdvisorsRoutes
                     );
     }
 
-    public static void AddRoutesAdvisors(this WebApplication app)
+
+    public static void AddRoutesAdvisors(WebApplication app, LRUCache<string, Advisor> cache)
     {
         var advisorsRoutes = app.MapGroup("api/v1/advisors");
 
@@ -48,11 +51,18 @@ public static class AdvisorsRoutes
         // get one advisor
         advisorsRoutes.MapGet("{id:guid}", async (Guid id, AdvisorsDbContext context, CancellationToken ct) =>
         {
+            var valueCache = cache.Get(id.ToString());
+            if(valueCache is not null)
+                return Results.Ok(valueCache);
+
             var advisor = await context
                 .Advisors
                 .FindAsync(id, ct);
             if(advisor is null)
                 return Results.NotFound();
+
+            // add to cache
+            cache.Set(id.ToString(), advisor);
 
             return Results.Ok(advisor);
         });
@@ -111,6 +121,11 @@ public static class AdvisorsRoutes
 
             context.Remove(advisor);
             await context.SaveChangesAsync(ct);
+
+            // remove from cache
+            var valueCache = cache.Get(id.ToString());
+            if (valueCache is not null)
+                cache.Remove(id.ToString());
 
             return Results.NoContent();
         });

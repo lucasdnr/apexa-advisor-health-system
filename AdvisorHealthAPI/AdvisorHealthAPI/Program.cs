@@ -1,4 +1,6 @@
+using AdvisorHealthAPI.Caching;
 using AdvisorHealthAPI.Data;
+using AdvisorHealthAPI.Models;
 using AdvisorHealthAPI.Routes;
 using AdvisorHealthAPI.Validators;
 using FluentValidation;
@@ -15,6 +17,10 @@ builder.Services.AddScoped<AdvisorsDbContext>();
 
 //Validators
 builder.Services.AddValidatorsFromAssemblyContaining(typeof(AdvisorValidator));
+
+// Caching
+// Add services to the container.
+//builder.Services.AddSingleton(new LRUCache<string, Advisor>(5));
 
 //CORS
 builder.Services.AddCors(options =>
@@ -44,7 +50,9 @@ app.UseDefaultFiles();
 app.UseStaticFiles();
 
 // Routes
-app.AddRoutesAdvisors();
+//new LRUCache<string, Advisor>(5)
+AdvisorsRoutes.AddRoutesAdvisors(app, new LRUCache<string, Advisor>(5));
+//app.AddRoutesAdvisors();
 
 // CORS
 app.UseCors("MyAllowedOrigins");
