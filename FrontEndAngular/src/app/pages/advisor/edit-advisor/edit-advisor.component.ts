@@ -47,6 +47,10 @@ export class EditAdvisorComponent implements OnInit {
     try {
       await lastValueFrom(this.advisorService.update(this.id, advisor));
 
+      // success message
+      this.toast.success('Advisor Updated');
+      
+      // redirect to home
       this.router.navigate(['/']);
 
     } catch (e: any) {

@@ -26,6 +26,10 @@ export class NewAdvisorComponent {
       // create new advisor and redirect to home page
       await lastValueFrom(this.advisorService.create(advisor));
 
+      // success message
+      this.toast.success('Advisor Created');
+      
+      // redirect to home
       this.router.navigate(['/']);
 
     } catch (e: any) {
