@@ -2,11 +2,14 @@ import { Component, EventEmitter, Input, OnInit, Output, output } from '@angular
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Advisor } from '../../models/advisor.model';
 import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-advisor-form',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, RouterLink],
+  imports: [FormsModule, ReactiveFormsModule, RouterLink, MatButtonModule, MatCardModule, MatInputModule],
   templateUrl: './advisor-form.component.html',
   styleUrl: './advisor-form.component.scss'
 })
