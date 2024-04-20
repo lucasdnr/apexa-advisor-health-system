@@ -62,4 +62,4 @@ Some points I believe can be improved and will be over time.
 - **Add Authentication**: The same for API, implement an authentication system so that only authorized users have access to API endpoints.
 
 
-As each of these items is addressed, I will update this document.
+As each of these items is addressed, I will update this document.💪
