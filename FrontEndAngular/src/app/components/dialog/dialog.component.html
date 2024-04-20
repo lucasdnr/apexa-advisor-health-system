@@ -1,0 +1,8 @@
+<div class="notification-message">
+    <h2 [innerHTML]="title"></h2>
+    <p [innerHTML]="message"></p>
+    <div class="actions">
+        <button mat-raised-button color="accent" (click)="close(true)">{{ yes }}</button>
+        <button mat-raised-button color="warn" (click)="close(false)" *ngIf="no">{{ no }}</button>
+    </div>
+</div>

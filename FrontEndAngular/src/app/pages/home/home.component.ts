@@ -4,16 +4,27 @@ import { Advisor } from '../../models/advisor.model';
 import { lastValueFrom } from 'rxjs';
 import { NgFor } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { DialogService } from '../../components/dialog/dialog.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTableModule } from '@angular/material/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [NgFor, RouterLink, MatButtonModule, MatCardModule, MatInputModule, MatIconModule, MatTableModule],
+  imports: [
+    NgFor,
+    RouterLink,
+    MatTooltipModule,
+    MatButtonModule,
+    MatCardModule,
+    MatInputModule,
+    MatIconModule,
+    MatTableModule
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -24,7 +35,7 @@ export class HomeComponent implements OnInit {
 
   displayedColumns = ['Health', 'Name', 'SIN', 'Address', 'Phone', 'Actions']
 
-  constructor(private advisorService: AdvisorService) { }
+  constructor(private advisorService: AdvisorService, private dialog: DialogService) { }
 
   async ngOnInit(): Promise<void> {
     // get all advisors from api
@@ -54,6 +65,34 @@ export class HomeComponent implements OnInit {
     this.advisors = this.advisorsList.filter(advisor =>
       advisor.name.toLowerCase().includes(value)
     )
+  }
+
+  async deleteItem(id: string) {
+    // get data from this.advisors to retrieve Name
+    const itemData = this.advisors.find(e => e.id === id);
+    if (itemData) {
+      const confirmed = await lastValueFrom(this.dialog
+        .showConfirmationdialog(
+          "Warning!",
+          `Are you sure you want to permanently delete ${itemData.name}?`,
+          "OK",
+          "Cancel"
+        ));
+        if(confirmed){
+          console.log("AAA");
+        }
+      // const dialogRef = this.dialog
+      //   .showConfirmationdialog(
+      //     "Warning!",
+      //     `Are you sure you want to permanently delete ${itemData.name}?`,
+      //     "OK",
+      //     "Cancel"
+      //   )
+      //   .subscribe((confirmed: boolean) => {
+      //     if (confirmed) {
+      //     }
+      //   });
+    }
   }
 
   formartSIN(sinNumber: number): string {

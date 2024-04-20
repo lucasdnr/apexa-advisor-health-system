@@ -51,8 +51,8 @@
         <ng-container matColumnDef="Actions">
           <th mat-header-cell *matHeaderCellDef> Actions </th>
           <td mat-cell *matCellDef="let element">
-            <button mat-icon-button routerLink="/advisor/{{element.id}}"><mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon></button>
-            <button mat-icon-button color="warn"><mat-icon aria-hidden="false" aria-label="Delete icon" fontIcon="delete_forever"></mat-icon></button>
+            <button mat-icon-button routerLink="/advisor/{{element.id}}" matTooltip="Edit"><mat-icon aria-hidden="false" aria-label="Edit icon" fontIcon="edit"></mat-icon></button>
+            <button mat-icon-button color="warn" matTooltip="Delete" (click)="deleteItem(element.id)"><mat-icon aria-hidden="false" aria-label="Delete icon" fontIcon="delete_forever"></mat-icon></button>
           </td>
         </ng-container>
       
