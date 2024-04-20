@@ -65,7 +65,6 @@ export class HomeComponent implements OnInit {
 
     } catch (e: any) {
       this.toast.errorGeneric();
-      console.error('Error to get Advisors');
     }
   }
 
@@ -99,7 +98,6 @@ export class HomeComponent implements OnInit {
           this.getAllData();
         } catch (e: any) {
           this.toast.errorGeneric();
-          console.error('Error to delete Advisors');
         }
       }
     }

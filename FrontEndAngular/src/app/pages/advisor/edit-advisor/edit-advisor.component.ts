@@ -40,7 +40,6 @@ export class EditAdvisorComponent implements OnInit {
 
     } catch (e: any) {
       this.toast.errorGeneric();
-      console.error("Error to get advisor data", e.message);
     }
   }
 
@@ -56,7 +55,6 @@ export class EditAdvisorComponent implements OnInit {
       }else{
         this.toast.errorGeneric();
       }
-      console.error("Error to create advisor", e.message);
     }
   }
 }

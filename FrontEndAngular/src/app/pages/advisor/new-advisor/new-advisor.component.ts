@@ -34,7 +34,6 @@ export class NewAdvisorComponent {
       }else{
         this.toast.errorGeneric();
       }
-      console.error("Error to create advisor", e.message);
     }
   }
 }
