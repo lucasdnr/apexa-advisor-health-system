@@ -6,8 +6,6 @@ using Microsoft.EntityFrameworkCore;
 using FluentValidation;
 using AdvisorHealthAPI.Validators;
 using AdvisorHealthAPI.Caching;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using System.ComponentModel.DataAnnotations;
 
 namespace AdvisorHealthAPI.Routes;
 

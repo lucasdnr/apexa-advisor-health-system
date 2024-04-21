@@ -3,7 +3,6 @@ using AdvisorHealthAPI.Data;
 using AdvisorHealthAPI.Interfaces;
 using AdvisorHealthAPI.Requests;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace AdvisorHealthAPI.Models;
 
