@@ -33,7 +33,7 @@ public class AdvisorRepository : IAdvisorRepository
             .Advisors
             .FindAsync(id, ct);
         if (advisor is null)
-            return advisor;
+            return null;
 
         // add to cache
         cache.Set(id.ToString(), advisor);
