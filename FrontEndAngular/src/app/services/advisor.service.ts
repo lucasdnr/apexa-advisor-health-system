@@ -15,6 +15,7 @@ export class AdvisorService {
 
   // fetch all data
   getAll(): Observable<Advisor[]> {
+    console.log("AAA",this.apiURL);
     return this.http.get<Advisor[]>(this.apiURL);
   }
 

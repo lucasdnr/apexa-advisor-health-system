@@ -7,12 +7,14 @@ using FluentValidation;
 using AdvisorHealthAPI.Validators;
 using AdvisorHealthAPI.Caching;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdvisorHealthAPI.Routes;
 
 public static class AdvisorsRoutes
 {
     private static ICollection<AdvisorResponse> EntityListToResponseList(IEnumerable<Advisor> advisorList)
+
     {
         return advisorList.Select(a => EntityToResponse(a)).ToList();
     }
@@ -38,102 +40,66 @@ public static class AdvisorsRoutes
         //advisorsRoutes.MapGet("/testing", () => "Hello World!");
 
         // get all advisors
-        advisorsRoutes.MapGet("", async (AdvisorsDbContext context, CancellationToken ct) =>
+        advisorsRoutes.MapGet("", async (AdvisorRepository repository) =>
         {
-            var advisors = await context
-                .Advisors
-                .ToListAsync(ct);
-
-            var advisorListResponse = EntityListToResponseList(advisors);
-            return Results.Ok(advisorListResponse);
+            return Results.Ok(EntityListToResponseList(await repository.GetAdvisors()));
         });
 
         // get one advisor
-        advisorsRoutes.MapGet("{id:guid}", async (Guid id, AdvisorsDbContext context, CancellationToken ct) =>
+        advisorsRoutes.MapGet("{id:guid}", async (Guid id, AdvisorRepository repository) =>
         {
-            var valueCache = cache.Get(id.ToString());
-            if(valueCache is not null)
-                return Results.Ok(EntityToResponse(valueCache));
-
-            var advisor = await context
-                .Advisors
-                .FindAsync(id, ct);
-            if(advisor is null)
+            var advisor = await repository.GetAdvisor(id, cache);
+            if (advisor is null)
+            {
                 return Results.NotFound();
-
-            // add to cache
-            cache.Set(id.ToString(), advisor);
-
+            }
             return Results.Ok(EntityToResponse(advisor));
         });
 
         // create new advisor
-        advisorsRoutes.MapPost("", async (AdvisorRequest request, AdvisorsDbContext context, CancellationToken ct) =>
+        advisorsRoutes.MapPost("", async (AdvisorRequest request, AdvisorRepository repository, AdvisorValidator validator) =>
         {
-
             // verify if SIN number exists
-            var hasAdvisor = await context.Advisors.AnyAsync(advisor => advisor.SinNumber == request.SinNumber, ct);
-            if (hasAdvisor)
-                return Results.Conflict("SIN number already exists!");
-
-            // Save new record
-            var advisor = new Advisor(request.Name, request.SinNumber, request.Address, request.Phone);
-            await context.Advisors.AddAsync(advisor, ct);
-            await context.SaveChangesAsync(ct);
-
-            // save to cache
-            cache.Set(advisor.Id.ToString(), advisor);
-
-            return Results.Ok(EntityToResponse(advisor));
-       
-
-        }).AddEndpointFilter<ValidationFilter<AdvisorRequest>>(); 
-
-        // update advisor
-        advisorsRoutes.MapPut("{id:guid}", async (Guid id, AdvisorRequest request, AdvisorsDbContext context, CancellationToken ct) =>
-        {
-            // verify if advisor exists to update
-            var advisor = await context.Advisors.SingleOrDefaultAsync(advisor => advisor.Id == id, ct);
-            if(advisor is null)
-                return Results.NotFound();
-
-            // verify if SIN number exists
-            var hasSinNumber = await context.Advisors.AnyAsync(advisor => advisor.SinNumber == request.SinNumber && advisor.Id != id, ct);
+            var hasSinNumber = await validator.ExistSinNumber(request.SinNumber);
             if (hasSinNumber)
                 return Results.Conflict("SIN number already exists!");
 
 
-            advisor.SetName(request.Name);
-            advisor.SetSinNumber(request.SinNumber);
-            advisor.SetAddress(request.Address);
-            advisor.SetPhone(request.Phone);
+            var advisor = await repository.AddAdvisor(request, cache);
 
-            await context.SaveChangesAsync(ct);
 
-            // update cache
-            var valueCache = cache.Get(id.ToString());
-            if (valueCache is not null)
-                cache.Set(id.ToString(), advisor);
+            return Results.Ok(EntityToResponse(advisor));
+
+
+        }).AddEndpointFilter<ValidationFilter<AdvisorRequest>>(); 
+
+        // update advisor
+        advisorsRoutes.MapPut("{id:guid}", async (Guid id, AdvisorRequest request, AdvisorValidator validator, AdvisorRepository repository) =>
+        {
+            // verify if advisor exists to update
+            var hasAdvisor = await validator.ExistAdvisor(id);
+            if (!hasAdvisor)
+                return Results.NotFound();
+
+            // verify if SIN number exists
+            var hasSinNumber = await validator.ExistSinNumberIdIgnore(request.SinNumber, id);
+            if (hasSinNumber)
+                return Results.Conflict("SIN number already exists!");
+
+            var advisor = await repository.UpdateAdvisor(id, request, cache);
+            if (advisor is null)
+                return Results.NotFound();
 
             return Results.Ok(EntityToResponse(advisor));
 
         }).AddEndpointFilter<ValidationFilter<AdvisorRequest>>();
 
         // delete advisor
-        advisorsRoutes.MapDelete("{id:guid}", async (Guid id, AdvisorsDbContext context, CancellationToken ct) =>
+        advisorsRoutes.MapDelete("{id:guid}", async (Guid id, AdvisorRepository repository) =>
         {
-            // verify if advisor exists to delete
-            var advisor = await context.Advisors.SingleOrDefaultAsync(advisor => advisor.Id == id, ct);
-            if (advisor is null)
+            var response = await repository.DeleteAdvisor(id, cache);
+            if (response is false)
                 return Results.NotFound();
-
-            context.Remove(advisor);
-            await context.SaveChangesAsync(ct);
-
-            // remove from cache
-            var valueCache = cache.Get(id.ToString());
-            if (valueCache is not null)
-                cache.Remove(id.ToString());
 
             return Results.NoContent();
         });

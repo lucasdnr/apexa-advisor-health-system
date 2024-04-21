@@ -1,5 +1,6 @@
 using AdvisorHealthAPI.Caching;
 using AdvisorHealthAPI.Data;
+using AdvisorHealthAPI.Interfaces;
 using AdvisorHealthAPI.Models;
 using AdvisorHealthAPI.Routes;
 using AdvisorHealthAPI.Validators;
@@ -21,8 +22,22 @@ builder.Services.AddSwaggerGen();
 //Db Context
 builder.Services.AddScoped<AdvisorsDbContext>();
 
+// Repository
+builder.Services.AddScoped<AdvisorRepository>();
+
+// Bussiness rules
+builder.Services.AddScoped<AdvisorValidator>();
+
+// Injection CancellationToken
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped(typeof(CancellationToken), serviceProvider =>
+{
+    IHttpContextAccessor httpContext = serviceProvider.GetRequiredService<IHttpContextAccessor>();
+    return httpContext.HttpContext?.RequestAborted ?? CancellationToken.None;
+});
+
 //Validators
-builder.Services.AddValidatorsFromAssemblyContaining(typeof(AdvisorValidator));
+builder.Services.AddValidatorsFromAssemblyContaining(typeof(RequestAdvisorValidator));
 
 // Caching
 // Add services to the container.

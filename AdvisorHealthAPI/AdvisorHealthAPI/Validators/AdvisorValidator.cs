@@ -1,32 +1,40 @@
 ﻿
-using AdvisorHealthAPI.Requests;
-using FluentValidation;
+using AdvisorHealthAPI.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace AdvisorHealthAPI.Validators;
 
-public class AdvisorValidator :  AbstractValidator<AdvisorRequest>
+public class AdvisorValidator(AdvisorsDbContext context, CancellationToken ct)
 {
-    public AdvisorValidator()
+    private readonly AdvisorsDbContext context = context;
+    private readonly CancellationToken ct = ct;
+
+    public async Task<bool> ExistSinNumber(int sinNumber)
     {
-        // Name
-        RuleFor(p => p.Name)
-            .MaximumLength(255)
-            .NotEmpty();
+        // verify if SIN number exists
+        var hasAdvisor = await context.Advisors.AnyAsync(advisor => advisor.SinNumber == sinNumber, ct);
+        if (hasAdvisor)
+            return true;
+
+        return false;
+    }
+
+    public async Task<bool> ExistSinNumberIdIgnore(int sinNumber, Guid id)
+    {
+        // verify if SIN number exists but with different id
+        var hasAdvisor = await context.Advisors.AnyAsync(advisor => advisor.SinNumber == sinNumber && advisor.Id != id, ct);
+        if (hasAdvisor)
+            return true;
+
+        return false;
+    }
+
+    public async Task<bool> ExistAdvisor(Guid id)
+    {
+        var advisor = await context.Advisors.SingleOrDefaultAsync(advisor => advisor.Id == id, ct);
+        if (advisor is null)
+            return false;
         
-        // Sin Number
-        RuleFor(p => p.SinNumber)
-            .NotEmpty()
-            .Must(w => w.ToString().Length == 9)
-            .WithMessage("Must be a size 9");
-        
-        // Address
-        RuleFor(p => p.Address)
-            .MaximumLength(255);
-        
-        // Phone
-        RuleFor(p => p.Phone)
-            .Must(w => w?.ToString().Length == 8)
-            .WithMessage("Must be a size 8")
-            .When(x => !string.IsNullOrEmpty(x.Phone.ToString()));
+        return true;
     }
 }
