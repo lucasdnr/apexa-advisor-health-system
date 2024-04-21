@@ -7,10 +7,16 @@ using System;
 
 namespace AdvisorHealthAPI.Models;
 
-public class AdvisorRepository(AdvisorsDbContext context, CancellationToken ct) : IAdvisorRepository
+public class AdvisorRepository : IAdvisorRepository
 {
-    private readonly AdvisorsDbContext context = context;
-    private readonly CancellationToken ct = ct;
+    private readonly AdvisorsDbContext context;
+    private readonly CancellationToken ct;
+
+    public AdvisorRepository(AdvisorsDbContext context, CancellationToken ct)
+    {
+        this.context = context;
+        this.ct = ct;
+    }
 
     public async Task<IEnumerable<Advisor>> GetAdvisors()
     {
