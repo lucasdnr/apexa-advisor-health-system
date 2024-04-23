@@ -1,14 +1,29 @@
-# Advisor Health System
+# AdvisorHealth System
 
-## DETAILS
-This application is coded in Angular(Frontend) and utilizes a Rest API in C# .Net(Backend). 
+## DESCRIPTION
+AdvisorHealth is a powerful Advisor management app designed to streamline your advisory process. With AdvisorHealth, you can easily search, add, edit, or delete Advisors. 
 
-The solution adopted for the REST API uses the MINIMAL REST API in .Net.
+This application is built with Angular 17 for the frontend and .Net Core 8 minimal Rest API for the backend, ensuring a smooth and seamless user experience.
 
-I did not adopt any database since the solution was developed using the inMemory option of .Net.
+This solution did not adopt any database since the solution was developed using the inMemory option of .Net.
 
-- Angular Version: 17
-- .Net Version: 8 with all packages in the latest version
+Key Features:
+
+1. Search Advisors:
+    - Easily search for Advisors using name parameter.
+2. Add New Advisor:
+    - Effortlessly add new Advisors to the system with just a few clicks.
+3. Edit Advisor Details:
+    - Update and modify Advisor details whenever necessary to keep information up-to-date.
+4. Delete Advisor:
+    - Remove outdated or unnecessary Advisors from the system with a simple delete function.
+5. AutomatedHealth Status:
+    - AdvisorHealth automatically generates a health status for each Advisor based on a predefined formula.
+        - Health Formula:
+            - Green: 60% chance
+            - Yellow: 20% chance
+            - Red: 20% chance
+
 
 ## PRE REQUISITES
 To install this app, the following prerequisites need to be installed:
